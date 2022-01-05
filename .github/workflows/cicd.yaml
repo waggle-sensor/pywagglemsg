@@ -40,9 +40,6 @@ jobs:
         with:
           name: dist
 
-      - name: Show artifacts
-        run: find .
-
       - name: Install package
         run: pip3 install *.whl
 
