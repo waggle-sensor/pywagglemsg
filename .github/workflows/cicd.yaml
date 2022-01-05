@@ -39,9 +39,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: dist
+          path: dist
 
       - name: Install package
-        run: pip3 install *.whl
+        run: pip3 install dist/*.whl
 
       - name: Run tests
         run: python3 -m unittest discover -s tests
