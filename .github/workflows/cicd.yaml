@@ -39,10 +39,12 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: dist
-          path: /dist
+
+      - name: Show artifacts
+        run: find .
 
       - name: Install package
-        run: pip3 install /dist/*.whl
+        run: pip3 install *.whl
 
       - name: Run tests
         run: python3 -m unittest discover -s tests
