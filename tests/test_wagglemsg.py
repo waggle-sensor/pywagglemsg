@@ -4,6 +4,18 @@ import wagglemsg
 
 class TestMain(unittest.TestCase):
 
+    def test_meta_default(self):
+        msg = wagglemsg.load('{"name":"env.temperature","val":0,"ts":0}')
+        self.assertEqual(msg.meta, {})
+
+    def test_validate_types(self):
+        with self.assertRaises(TypeError):
+            wagglemsg.load('{"name":null,"val":0,"ts":0}')
+        with self.assertRaises(TypeError):
+            wagglemsg.load('{"name":"env.temperature","val":0,"ts":"123"}')
+        with self.assertRaises(TypeError):
+            wagglemsg.load('{"name":"env.temperature","val":0,"ts":0,"meta":null}')
+
     def test_fail(self):
         test_cases = [
             wagglemsg.Message(

@@ -34,8 +34,22 @@ def load(body: bytes) -> Message:
     """dump deserializes a Message object."""
     data = json.loads(body)
 
+    # use default empty dict
+    if "meta" not in data:
+        data["meta"] = {}
+
     if data.get("enc") == "b64":
         data["val"] = base64.b64decode(data["val"])
+
+    # check data types
+    if not isinstance(data["name"], str):
+        raise TypeError("name must have type str")
+
+    if not isinstance(data["ts"], int):
+        raise TypeError("ts must have type int")
+
+    if not isinstance(data["meta"], dict):
+        raise TypeError("meta must have type dict[str, str]")
 
     return Message(
         name=data["name"],
